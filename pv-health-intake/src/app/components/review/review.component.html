@@ -1,0 +1,147 @@
+<div class="review-container">
+  <div class="review-wrapper">
+    <h1>Review Your Information</h1>
+    <p class="subtitle">Please review all information before submitting</p>
+
+    <div class="section">
+      <h2>Personal Information</h2>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="label">Full Name:</span>
+          <span class="value">{{ patientData?.fullName }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Date of Birth:</span>
+          <span class="value">{{ patientData?.dateOfBirth }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Email:</span>
+          <span class="value">{{ patientData?.email }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Phone:</span>
+          <span class="value">{{ patientData?.phone }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Appointment Date:</span>
+          <span class="value">{{ patientData?.appointmentDate }}</span>
+        </div>
+        <div class="info-item full-width">
+          <span class="label">Reason for Visit:</span>
+          <span class="value">{{ patientData?.reasonForVisit }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Emergency Contact</h2>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="label">Name:</span>
+          <span class="value">{{ surveyData?.emergencyContactName }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Phone:</span>
+          <span class="value">{{ surveyData?.emergencyContactPhone }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Relationship:</span>
+          <span class="value">{{ surveyData?.emergencyContactRelationship }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Medical History</h2>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="label">Chronic Conditions:</span>
+          <span class="value">{{ surveyData?.hasChronicConditions ? 'Yes' : 'No' }}</span>
+        </div>
+        <div class="info-item full-width" *ngIf="surveyData?.chronicConditions">
+          <span class="label">Conditions:</span>
+          <span class="value">{{ surveyData?.chronicConditions?.join(', ') }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Had Surgeries:</span>
+          <span class="value">{{ surveyData?.hadSurgeries ? 'Yes' : 'No' }}</span>
+        </div>
+        <div class="info-item full-width" *ngIf="surveyData?.surgeriesList">
+          <span class="label">Surgeries:</span>
+          <span class="value">{{ surveyData?.surgeriesList }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Has Allergies:</span>
+          <span class="value">{{ surveyData?.hasAllergies ? 'Yes' : 'No' }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Current Medications</h2>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="label">Taking Medications:</span>
+          <span class="value">{{ surveyData?.takingMedications ? 'Yes' : 'No' }}</span>
+        </div>
+        <div class="info-item full-width" *ngIf="surveyData?.medicationsList">
+          <span class="label">Medications:</span>
+          <span class="value">{{ surveyData?.medicationsList }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Taking Supplements:</span>
+          <span class="value">{{ surveyData?.takingSupplements ? 'Yes' : 'No' }}</span>
+        </div>
+        <div class="info-item full-width" *ngIf="surveyData?.supplementsList">
+          <span class="label">Supplements:</span>
+          <span class="value">{{ surveyData?.supplementsList }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Lifestyle</h2>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="label">Smoking Status:</span>
+          <span class="value">{{ surveyData?.smokingStatus }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Alcohol Consumption:</span>
+          <span class="value">{{ surveyData?.alcoholConsumption }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Exercise Frequency:</span>
+          <span class="value">{{ surveyData?.exerciseFrequency }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Sleep Hours:</span>
+          <span class="value">{{ surveyData?.sleepHours }} hours</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Insurance Information</h2>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="label">Provider:</span>
+          <span class="value">{{ surveyData?.insuranceProvider }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Insurance ID:</span>
+          <span class="value">{{ surveyData?.insuranceId }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Group Number:</span>
+          <span class="value">{{ surveyData?.groupNumber || 'N/A' }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="button-group">
+      <!-- <button class="btn-secondary" (click)="onEdit()">Edit Information</button> -->
+      <button class="btn-primary" (click)="onSubmit()">Submit Form</button>
+    </div>
+  </div>
+</div>

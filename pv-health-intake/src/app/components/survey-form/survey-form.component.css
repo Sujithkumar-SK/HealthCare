@@ -1,0 +1,13 @@
+.survey-container {
+  min-height: 100vh;
+  padding: 40px 20px;
+}
+
+.survey-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+  padding: 30px;
+}

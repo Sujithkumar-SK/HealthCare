@@ -1,0 +1,11 @@
+D:\Learning\PV_Health\pv-health-intake-backend\PVHealth.Common\bin\Debug\net10.0\PVHealth.Common.deps.json
+D:\Learning\PV_Health\pv-health-intake-backend\PVHealth.Common\bin\Debug\net10.0\PVHealth.Common.dll
+D:\Learning\PV_Health\pv-health-intake-backend\PVHealth.Common\bin\Debug\net10.0\PVHealth.Common.pdb
+D:\Learning\PV_Health\pv-health-intake-backend\PVHealth.Common\obj\Debug\net10.0\PVHealth.Common.GeneratedMSBuildEditorConfig.editorconfig
+D:\Learning\PV_Health\pv-health-intake-backend\PVHealth.Common\obj\Debug\net10.0\PVHealth.Common.AssemblyInfoInputs.cache
+D:\Learning\PV_Health\pv-health-intake-backend\PVHealth.Common\obj\Debug\net10.0\PVHealth.Common.AssemblyInfo.cs
+D:\Learning\PV_Health\pv-health-intake-backend\PVHealth.Common\obj\Debug\net10.0\PVHealth.Common.csproj.CoreCompileInputs.cache
+D:\Learning\PV_Health\pv-health-intake-backend\PVHealth.Common\obj\Debug\net10.0\PVHealth.Common.dll
+D:\Learning\PV_Health\pv-health-intake-backend\PVHealth.Common\obj\Debug\net10.0\refint\PVHealth.Common.dll
+D:\Learning\PV_Health\pv-health-intake-backend\PVHealth.Common\obj\Debug\net10.0\PVHealth.Common.pdb
+D:\Learning\PV_Health\pv-health-intake-backend\PVHealth.Common\obj\Debug\net10.0\ref\PVHealth.Common.dll

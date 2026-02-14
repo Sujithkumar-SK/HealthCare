@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="PVHealth.API/PVHealth.API.csproj" />
+  <Project Path="PVHealth.Business/PVHealth.Business.csproj" />
+  <Project Path="PVHealth.Common/PVHealth.Common.csproj" />
+  <Project Path="PVHealth.Data/PVHealth.Data.csproj" />
+  <Project Path="PVHealth.Domain/PVHealth.Domain.csproj" />
+</Solution>

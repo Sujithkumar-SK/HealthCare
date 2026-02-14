@@ -1,0 +1,100 @@
+<div class="landing-container">
+  <div class="card-custom">
+    <div class="header">
+      <h1>Patient Pre-Visit Health Intake</h1>
+      <p>Please complete this form before your appointment</p>
+    </div>
+
+    <form [formGroup]="patientForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label>Full Name *</label>
+        <input type="text" class="form-control" formControlName="fullName" placeholder="Enter your full name">
+        <div class="error-message" *ngIf="patientForm.get('fullName')?.invalid && (patientForm.get('fullName')?.dirty || patientForm.get('fullName')?.touched)">
+          <small *ngIf="patientForm.get('fullName')?.errors?.['required']">Full name is required</small>
+          <small *ngIf="patientForm.get('fullName')?.errors?.['pattern']">Only alphabets and spaces allowed</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Date of Birth *</label>
+        <input type="date" class="form-control" formControlName="dateOfBirth">
+        <div class="error-message" *ngIf="patientForm.get('dateOfBirth')?.invalid && (patientForm.get('dateOfBirth')?.dirty || patientForm.get('dateOfBirth')?.touched)">
+          <small *ngIf="patientForm.get('dateOfBirth')?.errors?.['required']">Date of birth is required</small>
+          <small *ngIf="patientForm.get('dateOfBirth')?.errors?.['futureDate']">Date of birth cannot be in the future</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Email *</label>
+        <input type="email" class="form-control" formControlName="email" placeholder="your.email@example.com">
+        <div class="error-message" *ngIf="patientForm.get('email')?.invalid && (patientForm.get('email')?.dirty || patientForm.get('email')?.touched)">
+          <small *ngIf="patientForm.get('email')?.errors?.['required']">Email is required</small>
+          <small *ngIf="patientForm.get('email')?.errors?.['email']">Enter a valid email</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Phone Number *</label>
+        <input type="tel" class="form-control" formControlName="phone" placeholder="1234567890" maxlength="10">
+        <div class="error-message" *ngIf="patientForm.get('phone')?.invalid && (patientForm.get('phone')?.dirty || patientForm.get('phone')?.touched)">
+          <small *ngIf="patientForm.get('phone')?.errors?.['required']">Phone number is required</small>
+          <small *ngIf="patientForm.get('phone')?.errors?.['pattern']">Enter exactly 10 digits</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Country *</label>
+        <select class="form-control" formControlName="country">
+          <option value="">Select Country</option>
+          <option *ngFor="let country of countries" [value]="country.iso2">{{ country.name }}</option>
+        </select>
+        <div class="error-message" *ngIf="patientForm.get('country')?.invalid && (patientForm.get('country')?.dirty || patientForm.get('country')?.touched)">
+          <small>Country is required</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>State *</label>
+        <select class="form-control" formControlName="state" [disabled]="!states.length">
+          <option value="">{{ loadingStates ? 'Loading...' : 'Select State' }}</option>
+          <option *ngFor="let state of states" [value]="state.iso2">{{ state.name }}</option>
+        </select>
+        <div class="error-message" *ngIf="patientForm.get('state')?.invalid && (patientForm.get('state')?.dirty || patientForm.get('state')?.touched)">
+          <small>State is required</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>City *</label>
+        <select class="form-control" formControlName="city" [disabled]="!cities.length">
+          <option value="">{{ loadingCities ? 'Loading...' : 'Select City' }}</option>
+          <option *ngFor="let city of cities" [value]="city.name">{{ city.name }}</option>
+        </select>
+        <div class="error-message" *ngIf="patientForm.get('city')?.invalid && (patientForm.get('city')?.dirty || patientForm.get('city')?.touched)">
+          <small>City is required</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Appointment Date *</label>
+        <input type="date" class="form-control" formControlName="appointmentDate">
+        <div class="error-message" *ngIf="patientForm.get('appointmentDate')?.invalid && (patientForm.get('appointmentDate')?.dirty || patientForm.get('appointmentDate')?.touched)">
+          <small *ngIf="patientForm.get('appointmentDate')?.errors?.['required']">Appointment date is required</small>
+          <small *ngIf="patientForm.get('appointmentDate')?.errors?.['pastDate']">Appointment date cannot be in the past</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Reason for Visit *</label>
+        <textarea class="form-control" formControlName="reasonForVisit" rows="4" placeholder="Briefly describe the reason for your visit"></textarea>
+        <div class="error-message" *ngIf="patientForm.get('reasonForVisit')?.invalid && (patientForm.get('reasonForVisit')?.dirty || patientForm.get('reasonForVisit')?.touched)">
+          <small>Reason for visit is required</small>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-primary" [disabled]="!patientForm.valid">
+        Start Health Assessment
+      </button>
+    </form>
+  </div>
+</div>

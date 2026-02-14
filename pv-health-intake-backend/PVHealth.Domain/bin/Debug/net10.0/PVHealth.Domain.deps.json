@@ -1,0 +1,39 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "PVHealth.Domain/1.0.0": {
+        "dependencies": {
+          "PVHealth.Common": "1.0.0"
+        },
+        "runtime": {
+          "PVHealth.Domain.dll": {}
+        }
+      },
+      "PVHealth.Common/1.0.0": {
+        "runtime": {
+          "PVHealth.Common.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "PVHealth.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "PVHealth.Common/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

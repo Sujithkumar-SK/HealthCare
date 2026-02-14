@@ -1,0 +1,88 @@
+<div class="confirmation-container">
+  <div class="confirmation-wrapper" id="pdf-content">
+    <div class="success-icon">
+      <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+        <circle cx="40" cy="40" r="40" fill="#4CAF50"/>
+        <path d="M25 40L35 50L55 30" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+
+    <h1>Form Submitted Successfully!</h1>
+    <p class="subtitle">Thank you for completing the health intake form</p>
+
+    <div class="confirmation-box">
+      <h2>Confirmation Number</h2>
+      <div class="confirmation-number">{{ confirmationNumber }}</div>
+      <p class="note">Please save this number for your records</p>
+    </div>
+
+    <div class="appointment-details">
+      <h2>Appointment Details</h2>
+      <div class="detail-item">
+        <span class="icon">📅</span>
+        <div>
+          <div class="detail-label">Appointment Date</div>
+          <div class="detail-value">{{ patientData?.appointmentDate }}</div>
+        </div>
+      </div>
+      <div class="detail-item">
+        <span class="icon">👤</span>
+        <div>
+          <div class="detail-label">Patient Name</div>
+          <div class="detail-value">{{ patientData?.fullName }}</div>
+        </div>
+      </div>
+      <div class="detail-item">
+        <span class="icon">📧</span>
+        <div>
+          <div class="detail-label">Email</div>
+          <div class="detail-value">{{ patientData?.email }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h3>Personal Information</h3>
+      <p><strong>Date of Birth:</strong> {{ patientData?.dateOfBirth }}</p>
+      <p><strong>Phone:</strong> {{ patientData?.phone }}</p>
+      <p><strong>Reason for Visit:</strong> {{ patientData?.reasonForVisit }}</p>
+    </div>
+
+    <div class="info-section">
+      <h3>Emergency Contact</h3>
+      <p><strong>Name:</strong> {{ surveyData?.emergencyContactName }}</p>
+      <p><strong>Phone:</strong> {{ surveyData?.emergencyContactPhone }}</p>
+      <p><strong>Relationship:</strong> {{ surveyData?.emergencyContactRelationship }}</p>
+    </div>
+
+    <div class="info-section">
+      <h3>Medical Summary</h3>
+      <p><strong>Chronic Conditions:</strong> {{ surveyData?.hasChronicConditions ? 'Yes' : 'No' }}</p>
+      <p><strong>Smoking Status:</strong> {{ surveyData?.smokingStatus }}</p>
+      <p><strong>Insurance Provider:</strong> {{ surveyData?.insuranceProvider }}</p>
+    </div>
+
+    <div class="next-steps">
+      <h2>Next Steps</h2>
+      <ul>
+        <li>You will receive a confirmation email shortly</li>
+        <li>Please arrive 15 minutes before your appointment</li>
+        <li>Bring a valid ID and insurance card</li>
+        <li>If you need to cancel or reschedule, call us at (555) 123-4567</li>
+      </ul>
+    </div>
+
+    <div class="contact-info">
+      <h3>Questions?</h3>
+      <p>Contact us at: <strong>support@healthclinic.com</strong></p>
+      <p>Phone: <strong>(555) 123-4567</strong></p>
+    </div>
+  </div>
+
+  <div class="button-group">
+    <button class="btn-secondary" (click)="downloadPDF()">
+      📄 Download PDF
+    </button>
+    <button class="btn-primary" (click)="onStartNew()">Start New Form</button>
+  </div>
+</div>
