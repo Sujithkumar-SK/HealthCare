@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PVHealth.Common")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+810ff437d8829d7f49c60fc2cd41e2b37c254428")]
 [assembly: System.Reflection.AssemblyProductAttribute("PVHealth.Common")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PVHealth.Common")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

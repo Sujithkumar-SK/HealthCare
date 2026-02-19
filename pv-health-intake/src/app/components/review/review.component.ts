@@ -28,6 +28,6 @@ export class ReviewComponent implements OnInit {
     this.router.navigate(['/survey']);
   }
   onSubmit(){
-    this.router.navigate(['/confirmation']);
+    this.router.navigate(['/dashboard']);
   }
 }

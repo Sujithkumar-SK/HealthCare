@@ -1,5 +1,8 @@
+using System.Text.Json;
+using Microsoft.EntityFrameworkCore;
 using PVHealth.Common.DTOs;
 using PVHealth.Data.Cache;
+using PVHealth.Data.Context;
 using PVHealth.Domain.Entities;
 using PVHealth.Domain.Interfaces;
 
@@ -8,10 +11,12 @@ public class PatientService : IPatientService
 {
     private readonly IRepository<Patient> _repo;
     private readonly RedisCacheService _cache;
-    public PatientService(IRepository<Patient> repo, RedisCacheService cache)
+    private readonly ApplicationDbContext _context;
+    public PatientService(IRepository<Patient> repo, RedisCacheService cache, ApplicationDbContext context)
     {
         _repo = repo;
         _cache = cache;
+        _context = context;
     }
     public async Task<ResponseDTO<PatientDTO>> CreatePatientAsync(PatientDTO patientDto)
     {
@@ -27,7 +32,8 @@ public class PatientService : IPatientService
                 State = patientDto.State,
                 City = patientDto.City,
                 AppointmentDate = patientDto.AppointmentDate,
-                ReasonForVisit = patientDto.ReasonForVisit
+                ReasonForVisit = patientDto.ReasonForVisit,
+                UserId = patientDto.UserId ?? Guid.Empty
             };
             var created = await _repo.AddAsync(patient);
             await _cache.SetAsync($"patient:{created.Id}",created);
@@ -200,7 +206,78 @@ public class PatientService : IPatientService
             State = patient.State,
             City = patient.City,
             AppointmentDate = patient.AppointmentDate,
-            ReasonForVisit = patient.ReasonForVisit
+            ReasonForVisit = patient.ReasonForVisit,
+            UserId = patient.UserId
         };
+    }
+
+    public async Task<ResponseDTO<IEnumerable<PatientIntakeResponseDTO>>> GetSurveysByUserIdAsync(Guid userId)
+    {
+        try
+        {
+            var patients = await _context.Patients
+                .Include(p => p.Survey)
+                .Where(p => p.UserId == userId)
+                .ToListAsync();
+
+            var result = patients.Select(p => new PatientIntakeResponseDTO
+            {
+                Patient = MapToDto(p),
+                Survey = p.Survey != null ? new SurveyDTO
+                {
+                    Id = p.Survey.Id,
+                    PatientId = p.Id,
+                    SurveyData = JsonSerializer.Deserialize<object>(p.Survey.SurveyData),
+                    CreatedAt = p.Survey.CreatedAt
+                } : null!
+            });
+
+            return new ResponseDTO<IEnumerable<PatientIntakeResponseDTO>>
+            {
+                Success = true,
+                Data = result
+            };
+        }
+        catch (Exception ex)
+        {
+            return new ResponseDTO<IEnumerable<PatientIntakeResponseDTO>>
+            {
+                Success = false,
+                Message = "Failed to retrieve surveys",
+                Errors = new List<string> { ex.Message }
+            };
+        }
+    }
+
+    public async Task<ResponseDTO<IEnumerable<PatientDTO>>> GetPatientsByUserIdAsync(Guid userId)
+    {
+        try
+        {
+            var patients = await _context.Patients
+                .Include(p => p.Survey)
+                .Where(p => p.UserId == userId)
+                .ToListAsync();
+
+            var result = patients.Select(p => {
+                var dto = MapToDto(p);
+                dto.HasSurvey = p.Survey != null;
+                return dto;
+            }).ToList();
+
+            return new ResponseDTO<IEnumerable<PatientDTO>>
+            {
+                Success = true,
+                Data = result
+            };
+        }
+        catch (Exception ex)
+        {
+            return new ResponseDTO<IEnumerable<PatientDTO>>
+            {
+                Success = false,
+                Message = "Failed to retrieve patients",
+                Errors = new List<string> { ex.Message }
+            };
+        }
     }
 }

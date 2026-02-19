@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { LocationService } from 'src/app/services/location.service';
 import { SurveyDataService } from 'src/app/services/survey-data.service';
 
@@ -18,15 +19,23 @@ export class LandingComponent implements OnInit {
   loadingStates = false;
   loadingCities = false;
   submitting = false;
+  loggingIn = false;
+  user: any = null;
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private surveyDataService: SurveyDataService,
     private locationService: LocationService,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
+    this.user = this.authService.getUser();
+    if (!this.user) {
+      this.router.navigate(['/']);
+      return;
+    }
     this.patientForm = this.fb.group({
       fullName: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)]],
       dateOfBirth: ['', [Validators.required, this.pastDateValidator]],
@@ -40,6 +49,25 @@ export class LandingComponent implements OnInit {
     });
     this.loadCountries();
     this.setupLocationListeners();
+  }
+  loginWithGoogle(): void {
+    this.loggingIn = true;
+    this.authService.loginWithGoogle().subscribe({
+      next: (response) => {
+        this.user = response.user;
+        this.loggingIn = false;
+        this.router.navigate(['/dashboard']);
+      },
+      error: (err) => {
+        console.error('Login failed:', err);
+        this.loggingIn = false;
+        alert('Login failed. Please try again.');
+      }
+    });
+  }
+   logout(): void {
+    this.authService.logout();
+    this.user = null;
   }
   loadCountries(){
     this.locationService.getCountries().subscribe({
@@ -112,18 +140,23 @@ export class LandingComponent implements OnInit {
   onSubmit() {
     if (this.patientForm.valid) {
       this.submitting = true;
-
-      this.apiService.createPatient(this.patientForm.value).subscribe({
+      console.log('User object:', this.user);
+      const patientData = {
+        ...this.patientForm.value,
+        userId: this.user.id
+      };
+      console.log('Patient data being sent:', patientData);
+      
+      this.apiService.createPatient(patientData).subscribe({
         next: (response) => {
           console.log('Patient created:', response);
-          this.surveyDataService.setPatientData(response.data);
           this.submitting = false;
-          this.router.navigate(['/survey']);
+          this.router.navigate(['/dashboard']);
         },
         error: (err) => {
           console.error('Error creating patient:', err);
           this.submitting = false;
-          alert('Failed to save patient data. Please try again.');
+          alert('Failed to create patient. Please try again.');
         }
       });
     }

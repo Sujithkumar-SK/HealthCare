@@ -354,6 +354,7 @@ export class SurveyFormComponent implements OnInit {
     this.surveyModel.onComplete.add((sender) => {
       this.submitting = true;
       const patientData = this.surveyDataService.getPatientData();
+      console.log('Patient data from service:', patientData);
 
       const surveyPayload = {
         patientId: patientData.id,
@@ -363,14 +364,14 @@ export class SurveyFormComponent implements OnInit {
       this.apiService.createSurvey(surveyPayload).subscribe({
         next: (response) => {
           console.log('Survey created:', response);
-          this.surveyDataService.setSurveyData(sender.data);
+          this.surveyDataService.setSurveyData(response.data);
           this.submitting = false;
           this.router.navigate(['/review']);
         },
         error: (err) => {
           console.error('Error creating survey:', err);
           this.submitting = false;
-          alert('Failed to save survey data. Please try again.');
+          alert('Failed to save survey. Please try again.');
         }
       });
     });

@@ -6,11 +6,29 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace PVHealth.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class AddUserAuthentication : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "users",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Email = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    Name = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
+                    OAuthProvider = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    OAuthId = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
+                    ProfilePicture = table.Column<string>(type: "text", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_users", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "patients",
                 columns: table => new
@@ -25,12 +43,19 @@ namespace PVHealth.Data.Migrations
                     City = table.Column<string>(type: "text", nullable: false),
                     AppointmentDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     ReasonForVisit = table.Column<string>(type: "text", nullable: false),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_patients", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_patients_users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -60,9 +85,20 @@ namespace PVHealth.Data.Migrations
                 column: "Email");
 
             migrationBuilder.CreateIndex(
+                name: "IX_patients_UserId",
+                table: "patients",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_surveys_PatientId",
                 table: "surveys",
                 column: "PatientId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_users_Email",
+                table: "users",
+                column: "Email",
                 unique: true);
         }
 
@@ -74,6 +110,9 @@ namespace PVHealth.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "patients");
+
+            migrationBuilder.DropTable(
+                name: "users");
         }
     }
 }

@@ -28,7 +28,7 @@ export class ConfirmationComponent implements OnInit {
 
   onStartNew(): void {
     this.surveyDataService.clearAllData();
-    this.router.navigate(['/']);
+    this.router.navigate(['/dashboard']);
   }
   downloadPDF(): void {
 

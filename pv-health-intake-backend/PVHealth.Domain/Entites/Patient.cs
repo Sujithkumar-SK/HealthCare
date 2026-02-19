@@ -11,6 +11,9 @@ public class Patient: BaseEntity
     public DateTime AppointmentDate { get; set; }
     public string ReasonForVisit { get; set; } = string.Empty;
 
+    public Guid UserId {get;set;}
+    public User User {get;set;} = null!;
+
     public Survey? Survey {get;set;}
 
 }

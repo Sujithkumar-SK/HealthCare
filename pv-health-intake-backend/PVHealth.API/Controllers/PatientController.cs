@@ -49,4 +49,18 @@ public class PatientsController : ControllerBase
         var result = await _patientService.DeletePatientAsync(id);
         return result.Success ? Ok(result) : NotFound(result);
     }
+
+    [HttpGet("user/{userId}/surveys")]
+    public async Task<IActionResult> GetSurveysByUserId(Guid userId)
+    {
+        var result = await _patientService.GetSurveysByUserIdAsync(userId);
+        return result.Success ? Ok(result) : BadRequest(result);
+    }
+
+    [HttpGet("user/{userId}")]
+    public async Task<IActionResult> GetPatientsByUserId(Guid userId)
+    {
+        var result = await _patientService.GetPatientsByUserIdAsync(userId);
+        return result.Success ? Ok(result) : BadRequest(result);
+    }
 }

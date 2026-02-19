@@ -13,3 +13,4 @@ D:\Learning\PV_Health\pv-health-intake-backend\PVHealth.Domain\obj\Debug\net10.0
 D:\Learning\PV_Health\pv-health-intake-backend\PVHealth.Domain\obj\Debug\net10.0\refint\PVHealth.Domain.dll
 D:\Learning\PV_Health\pv-health-intake-backend\PVHealth.Domain\obj\Debug\net10.0\PVHealth.Domain.pdb
 D:\Learning\PV_Health\pv-health-intake-backend\PVHealth.Domain\obj\Debug\net10.0\ref\PVHealth.Domain.dll
+D:\Learning\PV_Health\pv-health-intake-backend\PVHealth.Domain\obj\Debug\net10.0\PVHealth.Domain.sourcelink.json

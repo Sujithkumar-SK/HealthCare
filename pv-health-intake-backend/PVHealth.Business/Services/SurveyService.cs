@@ -1,6 +1,8 @@
 using System.Text.Json;
+using Microsoft.EntityFrameworkCore;
 using PVHealth.Common.DTOs;
 using PVHealth.Data.Cache;
+using PVHealth.Data.Context;
 using PVHealth.Data.Repositories;
 using PVHealth.Domain.Entities;
 using PVHealth.Domain.Interfaces;
@@ -11,24 +13,47 @@ public class SurveyService : ISurveyService
     private readonly IRepository<Survey> _repo;
     private readonly SurveyRepository _surveyrepo;
     private readonly RedisCacheService _cache;
+    private readonly ApplicationDbContext _context;
 
-    public SurveyService(IRepository<Survey> repo, SurveyRepository surveyrepo, RedisCacheService cache)
+    public SurveyService(IRepository<Survey> repo, SurveyRepository surveyrepo, RedisCacheService cache, ApplicationDbContext context)
     {
         _repo = repo;
         _surveyrepo = surveyrepo;
         _cache = cache;
+        _context = context;
     }
     public async Task<ResponseDTO<SurveyDTO>> CreateSurveyAsync(SurveyDTO surveyDto)
     {
+        using var transcation = await _context.Database.BeginTransactionAsync();
         try
         {
+            var patientExists = await _context.Patients.AnyAsync(p=>p.Id == surveyDto.PatientId);
+            if(!patientExists)
+            {
+                return new ResponseDTO<SurveyDTO>
+                {
+                    Success = false,
+                    Message = "Patient not found"
+                };
+            }
             var survey = new Survey
             {
                 PatientId = surveyDto.PatientId,
-                SurveyData = JsonSerializer.Serialize(surveyDto.SurveyData)
+                SurveyData = JsonSerializer.Serialize(surveyDto.SurveyData),
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow
             };
 
             var created = await _repo.AddAsync(survey);
+            if (created==null)
+            {
+                return new ResponseDTO<SurveyDTO>
+                {
+                    Success = false,
+                    Message = "Failed to update in db"
+                };
+            }
+            await transcation.CommitAsync();
             await _cache.SetAsync($"survey:{created.Id}", created);
 
             surveyDto.Id = created.Id;
@@ -41,6 +66,7 @@ public class SurveyService : ISurveyService
         }
         catch (Exception ex)
         {
+            await transcation.RollbackAsync();
             return new ResponseDTO<SurveyDTO>
             {
                 Success = false,

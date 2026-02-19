@@ -1,8 +1,8 @@
 <div class="landing-container">
   <div class="card-custom">
     <div class="header">
-      <h1>Patient Pre-Visit Health Intake</h1>
-      <p>Please complete this form before your appointment</p>
+      <h1>Add New Patient</h1>
+      <p>Complete patient information to create a profile</p>
     </div>
 
     <form [formGroup]="patientForm" (ngSubmit)="onSubmit()">
@@ -92,8 +92,9 @@
         </div>
       </div>
 
-      <button type="submit" class="btn-primary" [disabled]="!patientForm.valid">
-        Start Health Assessment
+      <button type="submit" class="btn-primary" [disabled]="!patientForm.valid || submitting">
+        <span *ngIf="!submitting">Add Patient</span>
+        <span *ngIf="submitting">Adding...</span>
       </button>
     </form>
   </div>

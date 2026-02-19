@@ -8,7 +8,7 @@ public class LocationService :ILocationService
 {
     private readonly RedisCacheService _cache;
     private readonly HttpClient _httpclient;
-    private const string ApiKey = "";
+    private const string ApiKey = "a862e4a98baff7f9c94f78a0549da13f7777815b5b967bf0754c9e769a4ad796";
     private const string BaseUrl = "https://api.countrystatecity.in/v1";
     public LocationService(RedisCacheService cache, IHttpClientFactory httpClientFactory)
     {

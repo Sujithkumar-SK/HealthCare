@@ -1,0 +1,83 @@
+<div class="mfa-setup-wrapper">
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <button class="btn btn-outline-secondary mb-3" (click)="goBack()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="me-2" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+          </svg>
+          Back to Dashboard
+        </button>
+
+        <div class="card shadow-lg">
+          <div class="card-body p-5">
+            <h2 class="text-center mb-4">Enable Two-Factor Authentication</h2>
+
+            <!-- Step 1: QR Code -->
+            <div *ngIf="step === 'qr'" class="text-center">
+              <div class="step-indicator mb-4">Step 1 of 3</div>
+              <h4 class="mb-3">Scan QR Code</h4>
+              <p class="text-muted mb-4">Use Google Authenticator, Microsoft Authenticator, or any TOTP app</p>
+              
+              <div *ngIf="loading" class="spinner-border text-primary"></div>
+              <img *ngIf="!loading && qrCodeUrl" [src]="qrCodeUrl" alt="QR Code" class="qr-code mb-4">
+              
+              <div class="alert alert-info">
+                <strong>Manual Entry:</strong><br>
+                <code>{{ secret }}</code>
+              </div>
+
+              <button class="btn btn-primary btn-lg" (click)="step = 'verify'">
+                Next: Verify Code
+              </button>
+            </div>
+
+            <!-- Step 2: Verify -->
+            <div *ngIf="step === 'verify'" class="text-center">
+              <div class="step-indicator mb-4">Step 2 of 3</div>
+              <h4 class="mb-3">Verify Code</h4>
+              <p class="text-muted mb-4">Enter the 6-digit code from your authenticator app</p>
+
+              <input 
+                type="text" 
+                class="form-control form-control-lg text-center mb-4" 
+                [(ngModel)]="verificationCode"
+                maxlength="6"
+                placeholder="000000"
+                style="font-size: 2rem; letter-spacing: 0.5rem;">
+
+              <button 
+                class="btn btn-success btn-lg" 
+                (click)="verifyAndEnable()"
+                [disabled]="loading || verificationCode.length !== 6">
+                <span *ngIf="!loading">Verify & Enable MFA</span>
+                <span *ngIf="loading">
+                  <span class="spinner-border spinner-border-sm me-2"></span>
+                  Verifying...
+                </span>
+              </button>
+            </div>
+
+            <!-- Step 3: Backup Codes -->
+            <div *ngIf="step === 'backup'" class="text-center">
+              <div class="step-indicator mb-4">Step 3 of 3</div>
+              <h4 class="mb-3">Save Backup Codes</h4>
+              <p class="text-muted mb-4">Save these codes in a safe place. Each can be used once if you lose your phone.</p>
+
+              <div class="backup-codes mb-4">
+                <div class="code-item" *ngFor="let code of backupCodes">{{ code }}</div>
+              </div>
+
+              <button class="btn btn-outline-primary me-2" (click)="downloadBackupCodes()">
+                Download Codes
+              </button>
+              <button class="btn btn-success" (click)="finish()">
+                Finish Setup
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

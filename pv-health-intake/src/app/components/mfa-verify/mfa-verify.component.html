@@ -1,0 +1,46 @@
+<div class="mfa-verify-wrapper">
+  <div class="container">
+    <div class="row min-vh-100 align-items-center justify-content-center">
+      <div class="col-md-6 col-lg-5">
+        <div class="card shadow-lg">
+          <div class="card-body p-5 text-center">
+            <div class="icon-circle mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2m3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2"/>
+              </svg>
+            </div>
+
+            <h3 class="mb-3">Two-Factor Authentication</h3>
+            <p class="text-muted mb-4">
+              {{ useBackupCode ? 'Enter your 8-digit backup code' : 'Enter the 6-digit code from your authenticator app' }}
+            </p>
+
+            <input 
+              type="text" 
+              class="form-control form-control-lg text-center mb-4" 
+              [(ngModel)]="code"
+              [maxlength]="useBackupCode ? 8 : 6"
+              [placeholder]="useBackupCode ? '00000000' : '000000'"
+              style="font-size: 2rem; letter-spacing: 0.5rem;"
+              (keyup.enter)="verify()">
+
+            <button 
+              class="btn btn-success btn-lg w-100 mb-3" 
+              (click)="verify()"
+              [disabled]="loading || code.length < (useBackupCode ? 8 : 6)">
+              <span *ngIf="!loading">Verify</span>
+              <span *ngIf="loading">
+                <span class="spinner-border spinner-border-sm me-2"></span>
+                Verifying...
+              </span>
+            </button>
+
+            <button class="btn btn-link" (click)="toggleBackupCode()">
+              {{ useBackupCode ? 'Use authenticator code' : 'Use backup code instead' }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

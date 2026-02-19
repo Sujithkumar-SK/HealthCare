@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "0epakH14/Mw=",
+  "dgSpecHash": "7gv/VDy9IiA=",
   "success": true,
   "projectFilePath": "D:\\Learning\\PV_Health\\pv-health-intake-backend\\PVHealth.Business\\PVHealth.Business.csproj",
   "expectedPackageFiles": [
@@ -31,10 +31,16 @@
     "C:\\Users\\SujithkumarSenthilKu\\.nuget\\packages\\microsoft.extensions.options\\10.0.3\\microsoft.extensions.options.10.0.3.nupkg.sha512",
     "C:\\Users\\SujithkumarSenthilKu\\.nuget\\packages\\microsoft.extensions.options.configurationextensions\\10.0.3\\microsoft.extensions.options.configurationextensions.10.0.3.nupkg.sha512",
     "C:\\Users\\SujithkumarSenthilKu\\.nuget\\packages\\microsoft.extensions.primitives\\10.0.3\\microsoft.extensions.primitives.10.0.3.nupkg.sha512",
+    "C:\\Users\\SujithkumarSenthilKu\\.nuget\\packages\\microsoft.identitymodel.abstractions\\8.16.0\\microsoft.identitymodel.abstractions.8.16.0.nupkg.sha512",
+    "C:\\Users\\SujithkumarSenthilKu\\.nuget\\packages\\microsoft.identitymodel.jsonwebtokens\\8.16.0\\microsoft.identitymodel.jsonwebtokens.8.16.0.nupkg.sha512",
+    "C:\\Users\\SujithkumarSenthilKu\\.nuget\\packages\\microsoft.identitymodel.logging\\8.16.0\\microsoft.identitymodel.logging.8.16.0.nupkg.sha512",
+    "C:\\Users\\SujithkumarSenthilKu\\.nuget\\packages\\microsoft.identitymodel.tokens\\8.16.0\\microsoft.identitymodel.tokens.8.16.0.nupkg.sha512",
     "C:\\Users\\SujithkumarSenthilKu\\.nuget\\packages\\npgsql\\9.0.2\\npgsql.9.0.2.nupkg.sha512",
     "C:\\Users\\SujithkumarSenthilKu\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\9.0.2\\npgsql.entityframeworkcore.postgresql.9.0.2.nupkg.sha512",
+    "C:\\Users\\SujithkumarSenthilKu\\.nuget\\packages\\otp.net\\1.4.1\\otp.net.1.4.1.nupkg.sha512",
     "C:\\Users\\SujithkumarSenthilKu\\.nuget\\packages\\pipelines.sockets.unofficial\\2.2.8\\pipelines.sockets.unofficial.2.2.8.nupkg.sha512",
     "C:\\Users\\SujithkumarSenthilKu\\.nuget\\packages\\stackexchange.redis\\2.10.14\\stackexchange.redis.2.10.14.nupkg.sha512",
+    "C:\\Users\\SujithkumarSenthilKu\\.nuget\\packages\\system.identitymodel.tokens.jwt\\8.16.0\\system.identitymodel.tokens.jwt.8.16.0.nupkg.sha512",
     "C:\\Users\\SujithkumarSenthilKu\\.nuget\\packages\\system.io.hashing\\9.0.10\\system.io.hashing.9.0.10.nupkg.sha512"
   ],
   "logs": []

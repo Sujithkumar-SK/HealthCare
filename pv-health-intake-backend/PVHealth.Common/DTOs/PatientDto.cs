@@ -11,4 +11,6 @@ public class PatientDTO
     public string City { get; set; } = string.Empty;
     public DateTime AppointmentDate { get; set; }
     public string ReasonForVisit { get; set; } = string.Empty;
+    public Guid? UserId { get; set; }
+    public bool HasSurvey { get; set; }
 }

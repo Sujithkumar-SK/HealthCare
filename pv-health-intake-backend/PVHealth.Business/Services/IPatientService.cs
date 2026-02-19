@@ -8,4 +8,6 @@ public interface IPatientService
     Task<ResponseDTO<IEnumerable<PatientDTO>>> GetAllPatientsAsync();
     Task<ResponseDTO<PatientDTO>> UpdatePatientAsync(Guid id, PatientDTO patientDto);
     Task<ResponseDTO<bool>> DeletePatientAsync(Guid id);
+    Task<ResponseDTO<IEnumerable<PatientIntakeResponseDTO>>> GetSurveysByUserIdAsync(Guid userId);
+    Task<ResponseDTO<IEnumerable<PatientDTO>>> GetPatientsByUserIdAsync(Guid userId);
 }
