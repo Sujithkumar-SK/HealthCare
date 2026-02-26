@@ -364,7 +364,7 @@ export class SurveyFormComponent implements OnInit {
       this.apiService.createSurvey(surveyPayload).subscribe({
         next: (response) => {
           console.log('Survey created:', response);
-          this.surveyDataService.setSurveyData(response.data);
+          this.surveyDataService.setSurveyData(response.data.surveyData);
           this.submitting = false;
           this.router.navigate(['/review']);
         },
